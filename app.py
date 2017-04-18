@@ -20,8 +20,8 @@ app.config["SECRET_KEY"] = "MY SECRET KEY"
 #     print(mlab.itemjson(task))
 
 
-# for user in User.objects():
-#     print(mlab.itemjson(user))
+for user in User.objects():
+    print(mlab.itemjson(user))
 
 @app.route('/')
 def hello_world():
