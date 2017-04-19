@@ -1,12 +1,15 @@
 from flask_restful import Resource, reqparse
+from flask_jwt import jwt_required
 from models.task import Task
 import mlab
 
 class TaskListRest(Resource):
+    @jwt_required()
     def get(self):
         task = Task.objects()
         return mlab.listjson(task)
 
+    @jwt_required()
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument("local_id", type = str, location ="json")
@@ -29,10 +32,11 @@ class TaskListRest(Resource):
 
 
 class TaskRes(Resource):
+    @jwt_required()
     def get(self,task_id):
         task = Task.objects().with_id(task_id)
         return mlab.itemjson(task)
-
+    @jwt_required()
     def delete(self,task_id):
         task = Task.objects.with_id(task_id)
         if task == None:
@@ -40,7 +44,7 @@ class TaskRes(Resource):
         else:
             task.delete()
             return {"Delete": "Successful"}
-
+    @jwt_required()
     def put(self,task_id):
         parse = reqparse.RequestParser()
         parse.add_argument(name="local_id", type=str, location="json")
