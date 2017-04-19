@@ -34,11 +34,11 @@ class TaskListRest(Resource):
 class TaskRes(Resource):
     @jwt_required()
     def get(self,task_id):
-        task = Task.objects().with_id(task_id)
+        task = Task.objects(local_id = task_id)
         return mlab.itemjson(task)
     @jwt_required()
     def delete(self,task_id):
-        task = Task.objects.with_id(task_id)
+        task = Task.objects(local_id = task_id)
         if task == None:
             return {"Delete": "Task not found"}
         else:

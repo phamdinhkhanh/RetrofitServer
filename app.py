@@ -15,13 +15,12 @@ api = Api(app)
 jwt = jwt_init(app)
 app.config["SECRET_KEY"] = "MY SECRET KEY"
 
-# all_tasks = Task.objects()
+# all_tasks = User.objects()
 # for task in all_tasks:
 #     print(mlab.itemjson(task))
 
-
-for user in User.objects():
-    print(mlab.itemjson(user))
+# for user in User.objects(username = "khanh"):
+#     print(mlab.itemjson(user))
 
 @app.route('/')
 def hello_world():
